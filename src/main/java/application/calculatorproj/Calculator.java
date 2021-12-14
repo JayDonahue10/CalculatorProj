@@ -1,3 +1,8 @@
+/**
+ * Jeffrey Donahue, Derryk Taylor
+ * Calculator Project for Part 5
+ */
+
 package application.calculatorproj;
 
 import javafx.application.Application;
@@ -22,7 +27,7 @@ import java.lang.Float;
 
 public class Calculator extends Application {
 
-    private float total = 0;
+    float total = 0;
     boolean afterSymbol = false;
     String binary;
     float sum = 0;
@@ -32,9 +37,18 @@ public class Calculator extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        /**
+         * gridPane made for layout of Buttons, textfield, and slider
+         */
         GridPane gridPane = new GridPane();
+        /**
+         * Creates textfield for output of calculations
+         */
         TextField textfield = new TextField();
 
+        /**
+         * Creates the general scene for the gridPane Calculator
+         */
         Scene scene = new Scene(gridPane, 370, 60);
         primaryStage.setTitle("Calculator");
         primaryStage.setScene(scene);
@@ -42,6 +56,9 @@ public class Calculator extends Application {
 
         scene.getStylesheets().add( getClass().getResource("CalcDesign.css").toExternalForm());
 
+        /**
+         * Buttons made for GUI application representing numbers, binary operators, unary operators, and other functions.
+        */
         Button number0 = new Button();
         Button number1 = new Button();
         Button number2 = new Button();
@@ -65,8 +82,10 @@ public class Calculator extends Application {
         Button clear_entry = new Button();
         Button decimal = new Button();
 
+        /**
+         * Sets the CSS styles for all the gridPane Objects
+         */
         textfield.getStyleClass().add("gray");
-
         number0.getStyleClass().add( "dark-blue2" );
         number1.getStyleClass().add( "dark-blue" );
         number2.getStyleClass().add( "dark-blue" );
@@ -91,14 +110,18 @@ public class Calculator extends Application {
         decimal.getStyleClass().add( "dark-blue" );
 
 
-
-
+        /**
+         * Creates the slider in the gridPane for selecting number values
+         */
         Slider slider = new Slider();
         slider.setMaxWidth(100);
 
         number0.setPadding( new Insets(2,40,2,2) );
         //number1.setHgap( 20 );
 
+        /**
+         * Sets the text values that will appear inside each button
+         */
         number0.setText("0");
         number1.setText("1");
         number2.setText("2");
@@ -123,6 +146,9 @@ public class Calculator extends Application {
         decimal.setText(". ");
 
 
+        /**
+         * Layout for the girdPane
+         */
         gridPane.add( textfield , 0 , 0 , 5 , 1 );
 
         gridPane.add(clear, 0 , 1 , 1 , 1);
@@ -150,6 +176,9 @@ public class Calculator extends Application {
         gridPane.add(slider, 0, 7, 5, 1);
 
 
+        /**
+         * These setOnAction calls allow the buttons to be interactive with the textfield
+         */
         number0.setOnAction(new EventHandler<ActionEvent>() {
             public void handle( ActionEvent ae ){
                 if(afterSymbol) textfield.setText("");
@@ -372,6 +401,9 @@ public class Calculator extends Application {
             }
         });
 
+        /**
+         * ChangeListener for the slider to associate with the textfield
+         */
         ChangeListener<Object> generalListener = new ChangeListener<Object>() {
             @Override
             public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
@@ -386,6 +418,9 @@ public class Calculator extends Application {
         slider.setShowTickLabels(true);
         slider.valueProperty().addListener(generalListener);
 
+        /**
+         * EventHandler linking key values to buttons
+         */
         gridPane.addEventHandler( KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             public void handle( KeyEvent ke ) {
                 switch(ke.getCode()){
